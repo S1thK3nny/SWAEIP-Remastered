@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 
 public class GameWindow {
 
+    public static Boolean player1IsCurrent = false;
     Character player1;
     Character player2;
     GameEvents gameEvents;
@@ -177,7 +178,12 @@ public class GameWindow {
         attackButtons = new JButton[player1.getAttacks().size()];
         for(int i=0; i<player1.getAttacks().size(); i++) {
             JButton button = new JButton(player1.getAttacks().get(i).getName());
-            //button.addActionListener(this);
+            button.addActionListener(event -> {
+                if(player1IsCurrent) {
+                    chatArea.append("\nHi again, I am Gaben!");
+                    player1Turn(false);
+                }
+            });
             attackButtonPanel.add(button);
             attackButtons[i] = button;
         }
@@ -192,6 +198,9 @@ public class GameWindow {
         itemButtonPanel.add(buttonItem3, BorderLayout.CENTER);
         itemButtonPanel.add(buttonItem4, BorderLayout.CENTER);
 
+        buttonItem1.addActionListener(event -> {
+            player1IsCurrent = true;
+        });
 
         JButton surrenderYes = new JButton("Confirm surrender?");
         surrenderButtonPanel.add(surrenderYes, BorderLayout.CENTER);
@@ -206,5 +215,9 @@ public class GameWindow {
         advancedButtonPanel.add(itemButtonPanel, BorderLayout.CENTER);
         advancedButtonPanel.add(surrenderButtonPanel, BorderLayout.CENTER);
         bottomPanel.add(advancedButtonPanel, BorderLayout.NORTH);
+    }
+
+    public void player1Turn(boolean game) {
+        gameEvents.setCondition(game);
     }
 }

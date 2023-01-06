@@ -18,7 +18,7 @@ public class SelectWindow implements ActionListener { //Must implement ActionLis
     JButton[] buttons;
     JButton btn;
     JButton rndBTN;
-    JLabel currentselected;
+    JLabel currentSelected;
     Character current;
     Character player1;
     Character player2;
@@ -80,18 +80,18 @@ public class SelectWindow implements ActionListener { //Must implement ActionLis
     public void submitSection() {
         panel2.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10)); //So that it isn't directly at the border of the window
 
-        currentselected = new JLabel("Current selected character: ");
+        currentSelected = new JLabel("Current selected character: ");
         rndBTN = new JButton("Random");
         btn = new JButton("Submit");
 
         btn.addActionListener(this);
         rndBTN.addActionListener(this);
 
-        currentselected.setAlignmentX(Component.CENTER_ALIGNMENT);
+        currentSelected.setAlignmentX(Component.CENTER_ALIGNMENT);
         rndBTN.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panel2.add(currentselected);
+        panel2.add(currentSelected);
         panel2.add(rndBTN);
         panel2.add(btn);
 
@@ -99,10 +99,10 @@ public class SelectWindow implements ActionListener { //Must implement ActionLis
         panel2.repaint();
     }
 
-    public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource() == btn) {
+    public void actionPerformed(ActionEvent event) {
+        if(event.getSource() == btn) {
             if(current == null) {
-                currentselected.setText("No character selected!");
+                currentSelected.setText("No character selected!");
             }
             else {
                 if(again) {
@@ -126,16 +126,16 @@ public class SelectWindow implements ActionListener { //Must implement ActionLis
             }
         }
 
-        else if(ae.getSource() == rndBTN) {
+        else if(event.getSource() == rndBTN) {
             int rnd = (int)(Math.random() * characters.size());
-            currentselected.setText("Current selected character: Random");
+            currentSelected.setText("Current selected character: Random");
             current = characters.get(rnd);
         }
 
         else {
             for (int i = 0; i < buttons.length; i++) {
-                if (ae.getSource() == buttons[i]) {
-                    currentselected.setText("Current selected character: " + characters.get(i).getName());
+                if (event.getSource() == buttons[i]) {
+                    currentSelected.setText("Current selected character: " + characters.get(i).getName());
                     current = characters.get(i);
                 }
             }
