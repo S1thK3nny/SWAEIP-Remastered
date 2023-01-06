@@ -1,0 +1,10 @@
+{
+    "name" : "Starkiller",
+    "tier" : 5,
+    "attackList" : [
+        "Force Choke",
+        "Force Lightning",
+        "Force Push",
+        "Lightsaber Attack"
+    ]
+}

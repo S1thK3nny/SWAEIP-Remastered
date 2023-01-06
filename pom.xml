@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SWAEIP:project xmlns:SWAEIP="http://maven.apache.org/POM/4.0.0"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <SWAEIP:modelVersion>4.0.0</SWAEIP:modelVersion>
+
+    <SWAEIP:groupId>org.example</SWAEIP:groupId>
+    <SWAEIP:artifactId>SWAEIP Remastered</SWAEIP:artifactId>
+    <SWAEIP:version>1.0-SNAPSHOT</SWAEIP:version>
+
+    <SWAEIP:dependencies>
+            <SWAEIP:dependency>
+                <SWAEIP:groupId>com.fasterxml.jackson.core</SWAEIP:groupId>
+                <SWAEIP:artifactId>jackson-databind</SWAEIP:artifactId>
+                <SWAEIP:version>2.14.0-rc1</SWAEIP:version>
+            </SWAEIP:dependency>
+
+            <SWAEIP:dependency>
+                <SWAEIP:groupId>com.google.guava</SWAEIP:groupId>
+                <SWAEIP:artifactId>guava-gwt</SWAEIP:artifactId>
+                <SWAEIP:version>31.1-jre</SWAEIP:version>
+            </SWAEIP:dependency>
+
+            <SWAEIP:dependency>
+                <SWAEIP:groupId>com.jgoodies</SWAEIP:groupId>
+                <SWAEIP:artifactId>jgoodies-forms</SWAEIP:artifactId>
+                <SWAEIP:version>1.8.0</SWAEIP:version>
+            </SWAEIP:dependency>
+
+            <SWAEIP:dependency>
+                <SWAEIP:groupId>com.formdev</SWAEIP:groupId>
+                <SWAEIP:artifactId>flatlaf</SWAEIP:artifactId>
+                <SWAEIP:version>3.0</SWAEIP:version>
+            </SWAEIP:dependency>
+
+        <SWAEIP:dependency>
+            <SWAEIP:groupId>com.formdev</SWAEIP:groupId>
+            <SWAEIP:artifactId>flatlaf-intellij-themes</SWAEIP:artifactId>
+            <SWAEIP:version>3.0</SWAEIP:version>
+        </SWAEIP:dependency>
+
+    </SWAEIP:dependencies>
+
+    <SWAEIP:properties>
+        <SWAEIP:maven.compiler.source>17</SWAEIP:maven.compiler.source>
+        <SWAEIP:maven.compiler.target>17</SWAEIP:maven.compiler.target>
+    </SWAEIP:properties>
+
+</SWAEIP:project>

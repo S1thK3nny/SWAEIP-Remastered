@@ -1,0 +1,9 @@
+{
+    "name" : "Darth Vader",
+    "tier" : 3,
+    "attackList" : [
+        "Force Choke",
+        "Force Push",
+        "Lightsaber Attack"
+    ]
+}

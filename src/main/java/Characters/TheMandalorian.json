@@ -1,0 +1,10 @@
+{
+    "name" : "The Mandalorian",
+    "tier" : 3,
+    "attackList" : [
+        "Force Choke",
+        "Force Lightning",
+        "Force Push",
+        "Lightsaber Attack"
+    ]
+}
