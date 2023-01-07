@@ -68,7 +68,7 @@ public class JSONHandler {
     }
 
     public ArrayList defaultAttack() { //When there are no files in Attacks
-        Attack attDefault = new Attack("Default", "Damage");
+        Attack attDefault = new Attack("Default", "Damage", 1.0);
         ArrayList<Attack> attListDefault = new ArrayList<>();
         attListDefault.add(attDefault);
         return attListDefault;

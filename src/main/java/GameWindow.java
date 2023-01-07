@@ -1,14 +1,17 @@
 import com.formdev.flatlaf.FlatDarculaLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class GameWindow {
 
+    public static Boolean chooseAttackPhase = true;
     public static Boolean player1IsCurrent = false;
-    Character player1;
-    Character player2;
+    private static Character player1;
+    private static Character player2;
     GameEvents gameEvents;
     JButton[] attackButtons;
     JFrame frame;
@@ -178,10 +181,12 @@ public class GameWindow {
         attackButtons = new JButton[player1.getAttacks().size()];
         for(int i=0; i<player1.getAttacks().size(); i++) {
             JButton button = new JButton(player1.getAttacks().get(i).getName());
+            int p1Attack = i; //For whatever reason I have to do this because using i in the lambda directly will throw an error.
             button.addActionListener(event -> {
-                if(player1IsCurrent) {
+                if(chooseAttackPhase) {
                     chatArea.append("\nHi again, I am Gaben!");
-                    player1Turn(false);
+                    GameEvents.player1Attack = p1Attack;
+                    setAttackPhase(false);
                 }
             });
             attackButtonPanel.add(button);
@@ -198,15 +203,18 @@ public class GameWindow {
         itemButtonPanel.add(buttonItem3, BorderLayout.CENTER);
         itemButtonPanel.add(buttonItem4, BorderLayout.CENTER);
 
-        buttonItem1.addActionListener(event -> {
-            player1IsCurrent = true;
-        });
-
         JButton surrenderYes = new JButton("Confirm surrender?");
         surrenderButtonPanel.add(surrenderYes, BorderLayout.CENTER);
-        surrenderYes.addActionListener(e -> {
-            chatArea.append("\nYou lost!");
-            gameEvents.stopGameThread();
+
+        //Cannot use Lambda as we need the actionListener to remove it.
+        surrenderYes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chatArea.append("\nYou lost!");
+                chooseAttackPhase = false;
+                surrenderYes.removeActionListener(this);
+                gameEvents.stopGameThread();
+            }
         });
 
 
@@ -217,7 +225,15 @@ public class GameWindow {
         bottomPanel.add(advancedButtonPanel, BorderLayout.NORTH);
     }
 
-    public void player1Turn(boolean game) {
+    public void setAttackPhase(boolean game) {
         gameEvents.setCondition(game);
+    }
+
+    public static Character getPlayer1() {
+        return player1;
+    }
+
+    public static Character getPlayer2() {
+        return player2;
     }
 }

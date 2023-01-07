@@ -1,4 +1,5 @@
 {
     "name" : "Force Lightning",
-    "type" : "Damage"
+    "type" : "Damage",
+    "attackSpeed" : 1.0
 }

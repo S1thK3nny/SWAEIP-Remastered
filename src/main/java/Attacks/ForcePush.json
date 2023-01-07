@@ -1,4 +1,5 @@
 {
     "name" : "Force Push",
-    "type" : "Damage"
+    "type" : "Damage",
+    "attackSpeed" : 1.5
 }

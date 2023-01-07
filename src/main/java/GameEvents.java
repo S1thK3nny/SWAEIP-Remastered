@@ -6,6 +6,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class GameEvents extends Thread {
 
     Condition conditionObject;
+    static int player1Attack = -1;
+    static int player2Attack = 0;
     JTextArea chatArea;
     Lock lock;
     Thread gameThread;
@@ -29,31 +31,45 @@ public class GameEvents extends Thread {
     @Override
     public void run() {
         while(gameThread != null) {
-            if(GameWindow.player1IsCurrent) {
+            if(GameWindow.chooseAttackPhase) {
                 lock.lock();
                 try {
-                    while(GameWindow.player1IsCurrent) {
+                    while(GameWindow.chooseAttackPhase) {
                         conditionObject.await();
                     }
-                } catch (InterruptedException e) {
-                } finally {
+                }
+                catch (InterruptedException e) {}
+                finally {
                     lock.unlock();
                     //chatArea.append("Lets go");
                 }
-                }
+            }
             else {
                 System.out.println("Hello there!");
+                System.out.println(player1Attack);
+                if(GameWindow.getPlayer1().getAttacks().get(player1Attack).getAttackSpeed() == GameWindow.getPlayer2().getAttacks().get(player2Attack).getAttackSpeed()) {
+                    System.out.println("Equal");
+                }
+                else if(GameWindow.getPlayer1().getAttacks().get(player1Attack).getAttackSpeed() > GameWindow.getPlayer2().getAttacks().get(player2Attack).getAttackSpeed()) {
+                    System.out.println("player 1 turn");
+                }
+                else {
+                    System.out.println("player 2 turn");
+                }
+
+                setCondition(true);
             }
         }
     }
 
     public void setCondition(boolean condition) {
-        GameWindow.player1IsCurrent = condition;
+        GameWindow.chooseAttackPhase = condition;
         lock.lock();
         try {
             // Signal the condition object
             conditionObject.signal();
-        } finally {
+        }
+        finally {
             lock.unlock();
         }
     }
