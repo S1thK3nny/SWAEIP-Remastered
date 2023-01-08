@@ -52,7 +52,6 @@ public class GameEvents extends Thread {
                 }
                 else if(GameWindow.getPlayer1().getAttacks().get(player1Attack).getAttackSpeed() > GameWindow.getPlayer2().getAttacks().get(player2Attack).getAttackSpeed()) {
                     System.out.println("player 1 turn");
-                    GameWindow.getPlayer2().setHealth(GameWindow.getPlayer2().getHealth()-100);
                 }
                 else {
                     System.out.println("player 2 turn");
