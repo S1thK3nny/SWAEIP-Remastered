@@ -9,11 +9,13 @@ import java.awt.event.WindowEvent;
 public class GameWindow {
 
     public static Boolean chooseAttackPhase = true;
+    public static Boolean gameOver = false;
     public static Boolean player1IsCurrent = false;
     private static Character player1;
     private static Character player2;
     GameEvents gameEvents;
     JButton[] attackButtons;
+    JButton surrenderYes;
     JFrame frame;
     JLabel player1Health;
     JLabel player2Health;
@@ -143,12 +145,14 @@ public class GameWindow {
         player1.healthChange.addPropertyChangeListener(evt -> {
             if (evt.getPropertyName().equals("health")) {
                 player1Health.setText("Player 1 Health: " + player1.getHealth());
+                if(player1.getHealth()>=0) winGame(player2, player1);
             }
         });
 
         player2.healthChange.addPropertyChangeListener(evt -> {
             if (evt.getPropertyName().equals("health")) {
                 player2Health.setText("Player 2 Health: " + player2.getHealth());
+                if(player1.getHealth()>=0) winGame(player1, player2);
             }
         });
 
@@ -183,7 +187,7 @@ public class GameWindow {
             JButton button = new JButton(player1.getAttacks().get(i).getName());
             int p1Attack = i; //For whatever reason I have to do this because using i in the lambda directly will throw an error.
             button.addActionListener(event -> {
-                if(chooseAttackPhase) {
+                if(chooseAttackPhase && !gameOver) {
                     chatArea.append("\nHi again, I am Gaben!");
                     GameEvents.player1Attack = p1Attack;
                     setAttackPhase(false);
@@ -203,18 +207,11 @@ public class GameWindow {
         itemButtonPanel.add(buttonItem3, BorderLayout.CENTER);
         itemButtonPanel.add(buttonItem4, BorderLayout.CENTER);
 
-        JButton surrenderYes = new JButton("Confirm surrender?");
+        surrenderYes = new JButton("Confirm surrender?");
         surrenderButtonPanel.add(surrenderYes, BorderLayout.CENTER);
 
-        //Cannot use Lambda as we need the actionListener to remove it.
-        surrenderYes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                chatArea.append("\nYou lost!");
-                chooseAttackPhase = false;
-                surrenderYes.removeActionListener(this);
-                gameEvents.stopGameThread();
-            }
+        surrenderYes.addActionListener(event -> {
+            if(!gameOver) winGame(player2, player1);
         });
 
 
@@ -227,6 +224,12 @@ public class GameWindow {
 
     public void setAttackPhase(boolean game) {
         gameEvents.setCondition(game);
+    }
+
+    public void winGame(Character winner, Character loser) {
+        chatArea.append("\n" + loser.getName() + " lost the battle! " + winner.getName() + " wins!");
+        gameOver = true;
+        gameEvents.stopGameThread();
     }
 
     public static Character getPlayer1() {

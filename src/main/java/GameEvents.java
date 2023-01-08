@@ -41,7 +41,6 @@ public class GameEvents extends Thread {
                 catch (InterruptedException e) {}
                 finally {
                     lock.unlock();
-                    //chatArea.append("Lets go");
                 }
             }
             else {
