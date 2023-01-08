@@ -145,14 +145,14 @@ public class GameWindow {
         player1.healthChange.addPropertyChangeListener(evt -> {
             if (evt.getPropertyName().equals("health")) {
                 player1Health.setText("Player 1 Health: " + player1.getHealth());
-                if(player1.getHealth()>=0) winGame(player2, player1);
+                if(player1.getHealth()<=0) winGame(player2, player1);
             }
         });
 
         player2.healthChange.addPropertyChangeListener(evt -> {
             if (evt.getPropertyName().equals("health")) {
                 player2Health.setText("Player 2 Health: " + player2.getHealth());
-                if(player1.getHealth()>=0) winGame(player1, player2);
+                if(player2.getHealth()<=0) winGame(player1, player2);
             }
         });
 

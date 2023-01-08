@@ -7,7 +7,7 @@ public class GameEvents extends Thread {
 
     Condition conditionObject;
     static int player1Attack = -1;
-    static int player2Attack = 0;
+    static int player2Attack = -1;
     JTextArea chatArea;
     Lock lock;
     Thread gameThread;
@@ -43,14 +43,16 @@ public class GameEvents extends Thread {
                     lock.unlock();
                 }
             }
+            //This is where most of the fun will happen!
             else {
-                System.out.println("Hello there!");
-                System.out.println(player1Attack);
+                aiTurn();
+                System.out.println("player1Attack: " + player1Attack + " player2Attack: " + player2Attack);
                 if(GameWindow.getPlayer1().getAttacks().get(player1Attack).getAttackSpeed() == GameWindow.getPlayer2().getAttacks().get(player2Attack).getAttackSpeed()) {
                     System.out.println("Equal");
                 }
                 else if(GameWindow.getPlayer1().getAttacks().get(player1Attack).getAttackSpeed() > GameWindow.getPlayer2().getAttacks().get(player2Attack).getAttackSpeed()) {
                     System.out.println("player 1 turn");
+                    GameWindow.getPlayer2().setHealth(GameWindow.getPlayer2().getHealth()-100);
                 }
                 else {
                     System.out.println("player 2 turn");
@@ -58,6 +60,7 @@ public class GameEvents extends Thread {
 
                 setCondition(true);
             }
+
         }
     }
 
@@ -71,5 +74,9 @@ public class GameEvents extends Thread {
         finally {
             lock.unlock();
         }
+    }
+
+    public void aiTurn() {
+        player2Attack = (int)(Math.random() * GameWindow.getPlayer2().getAttacks().size());
     }
 }
